@@ -42,8 +42,7 @@ geth --datadir ./myDataDir init ./genesis.json
 geth --datadir ./datadir init ./genesis.json
 mv  ./myDataDir/keystore ./datadir/keystore
 
-ls 
+ls copy/scripts/
 
-geth --port ${ETH_PORT} --networkid 1234 --datadir=./datadir --preload "/copy/scripts/miner.js" --http --http.port ${ETH_HTTP_PORT} --http.addr 127.0.0.1  --rpcapi "eth,net,web3,personal,miner,admin" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine --exec "miner.start()" &
-truffle compile &
-truffle migrate 
+geth --port ${ETH_PORT} --networkid 1234 --datadir=./datadir --preload "/copy/scripts/miner.js" --http --http.port ${ETH_HTTP_PORT} --http.addr 127.0.0.1  --rpcapi "eth,net,web3,personal,miner,admin" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine 
+
