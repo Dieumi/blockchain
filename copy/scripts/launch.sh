@@ -20,7 +20,7 @@ genesis="{
     \"petersburgBlock\": 0,
     \"ethash\": {}
   },
-  \"difficulty\": \"1\",
+  \"difficulty\": \"100\",
   \"gasLimit\": \"2000000\",
   \"alloc\": {
     \"${adress}\": { 
@@ -42,11 +42,8 @@ geth --datadir ./myDataDir init ./genesis.json
 geth --datadir ./datadir init ./genesis.json
 mv  ./myDataDir/keystore ./datadir/keystore
 
+ls 
+
+geth --port ${ETH_PORT} --networkid 1234 --datadir=./datadir --preload "/copy/scripts/miner.js" --http --http.port ${ETH_HTTP_PORT} --http.addr 127.0.0.1  --rpcapi "eth,net,web3,personal,miner,admin" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine --exec "miner.start()" &
 truffle compile &
-truffle migrate &
-geth --port ${ETH_PORT} --networkid 1234 --datadir=./datadir  --http --http.port ${ETH_HTTP_PORT} --http.addr 127.0.0.1  --rpcapi "eth,net,web3,personal,miner,admin" --allow-insecure-unlock --unlock ${adress} --password list.txt --exec "miner.start()" &
-sleep 10 &
-geth --exec "miner.start()" attach http:127.0.0.1:8543
-
-
-
+truffle migrate 
