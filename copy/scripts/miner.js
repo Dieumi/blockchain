@@ -1,3 +1,4 @@
+console.log("PATATE2")
 var mining_threads = 1
 console.log("PATATE1")
 function checkWork() {
@@ -11,6 +12,7 @@ function checkWork() {
         console.log("== No transactions! Mining stopped.");
     }
 }
+
 
 eth.filter("latest", function(err, block) { checkWork(); });
 eth.filter("pending", function(err, block) { checkWork(); });

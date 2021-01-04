@@ -44,5 +44,5 @@ mv  ./myDataDir/keystore ./datadir/keystore
 
 ls copy/scripts/
 
-geth --port ${ETH_PORT} --networkid 1234 --datadir=./datadir --preload "/copy/scripts/miner.js" --http --http.port ${ETH_HTTP_PORT} --http.addr 127.0.0.1  --rpcapi "eth,net,web3,personal,miner,admin" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine 
+geth --preload "/copy/scripts/miner.js" --port ${ETH_PORT} --networkid 1234 --datadir=./datadir  --http --http.port ${ETH_HTTP_PORT} --http.addr 127.0.0.1  --rpcapi "eth,net,web3,personal,miner,admin" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine 
 
