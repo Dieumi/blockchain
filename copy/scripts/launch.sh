@@ -42,5 +42,5 @@ geth --datadir ./myDataDir init ./genesis.json
 geth --datadir ./datadir init ./genesis.json
 mv  ./myDataDir/keystore ./datadir/keystore
 
-geth --preload "/private-ethereum/scripts/miner.js" --port ${ETH_PORT} --networkid 1234 --datadir=./datadir  --http --http.port ${ETH_HTTP_PORT} --http.addr 127.0.0.1  --rpcapi "eth,net,web3,personal,miner,admin" --http.corsdomain "*" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine 
+geth --preload "/private-ethereum/scripts/miner.js" --port ${ETH_PORT} --networkid 1234 --datadir=./datadir  --http --http.port ${ETH_HTTP_PORT} --http.addr 54.234.210.37  --rpcapi "eth,net,web3,personal,miner,admin" --http.corsdomain "*" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine 
 
