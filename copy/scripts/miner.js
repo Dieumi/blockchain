@@ -14,7 +14,7 @@ function checkWork() {
 }
 
 
-eth.subscribe("latest", function(err, block) { checkWork(); });
-eth.subscribe("pending", function(err, block) { checkWork(); });
+eth.filter("latest").watch(function(err, block) { checkWork(); });
+eth.filter("pending").watch(function(err, block) { checkWork(); });
 
 checkWork();
