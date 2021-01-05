@@ -21,9 +21,8 @@ COPY ./copy /private-ethereum
 RUN cd private-ethereum/ &&\
     git clone https://github.com/Dieumi/blockchain.git
 
-RUN ls /private-ethereum/blockchain
 EXPOSE 30303 30304 8543 8546
 
 
 
-ENTRYPOINT ["/bin/sh","./private-ethereum/scripts/init.sh"]
+ENTRYPOINT ["/bin/sh","./scripts/init.sh"]
