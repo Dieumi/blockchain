@@ -12,6 +12,8 @@ RUN apt-get install software-properties-common -y && \
     apt install git-all -y  && \
     apt-get install -y libusb-1.0-0 && \
     apt-get install -y libusb-dev && \
+    mkdir app && \
+    cd app/ && \ 
     mkdir private-ethereum 
 
 
