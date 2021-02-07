@@ -1,5 +1,15 @@
-# blockchain
+## blockchain Infrastructure
 Private Coin
+
+## Docker run
+
+docker build -t privateth . 
+docker run -v /path+/to/your/volume/myvolume/:/tmp/volume --net=host --env-file=envfile.env privateth
+
+
+## Smart Contract 
+
+
 
 # Install geth & truffle 
 $ sudo apt-get install nodejs
@@ -29,7 +39,7 @@ geth --datadir ./dataDir init ./genesis.json
     \"ethash\": {}
   },
   \"difficulty\": \"1\",
-  \"gasLimit\": \"2000000\",
+  \"gasLimit\": \"9000000000\",
   \"alloc\": {
     \"${adress}\": { 
     \"balance\": \"100000000000000000000000\" 

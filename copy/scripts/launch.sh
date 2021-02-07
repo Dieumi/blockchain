@@ -2,11 +2,6 @@
 
 cd private-ethereum/blockchain
 echo ${ETH_ACC_PASSWORD} >> list.txt
-
-adress=$(geth --datadir ./datadir --password list.txt account new | grep "Public address of the key:" | cut -d':' -f2) 
-
-adress=$(echo ${adress} | tr -d ' ')
-
 genesis="{ 
   \"config\": {
     \"chainId\": 1234,
@@ -21,26 +16,24 @@ genesis="{
     \"ethash\": {}
   },
   \"difficulty\": \"100\",
-  \"gasLimit\": \"2000000\",
+  \"gasLimit\": \"9000000000000\",
   \"alloc\": {
-    \"${adress}\": { 
+    \"${ADRESS}\": { 
     \"balance\": \"100000000000000000000000\" 
     }
   }
 }"
 
 
-if [ ${ETH_DEPLOY_SMART_CONTRACT}=true ];
-then
- echo "Set adress for deploying" 
- sed -i "s|from:|from: \"${adress}\" |g" truffle-config.js 
-fi
-
 echo ${genesis} > genesis.json
 
-geth --datadir ./myDataDir init ./genesis.json
+
 geth --datadir ./datadir init ./genesis.json
-mv  ./myDataDir/keystore ./datadir/keystore
 
-geth --preload "/private-ethereum/scripts/miner.js" --port ${ETH_PORT} --networkid 1234 --datadir=./datadir  --http --http.port ${ETH_HTTP_PORT} --http.addr ${ETH_HTTP_DNS}  --rpcapi "eth,net,web3,personal,miner,admin" --http.corsdomain "*" --allow-insecure-unlock --unlock ${adress} --password list.txt --mine 
-
+if [ ${ETH_FIRST_GEN}=true ];
+then
+  mv  ../UTC/keystore ./datadir/
+  geth  --port ${ETH_PORT} --verbosity 6 --networkid 1234 --datadir=./datadir --syncmode 'full' --nodiscover --miner.gasprice=0   --http --http.port ${ETH_HTTP_PORT} --http.addr ${ETH_HTTP_DNS}  --rpcapi "eth,net,web3,personal,miner,admin" --http.corsdomain "*"  --allow-insecure-unlock --unlock ${ADRESS} --password list.txt 
+else
+  geth  --port ${ETH_PORT} --verbosity 6 --networkid 1234 --datadir=./datadir --syncmode 'full' --nodiscover --miner.gasprice=0 --http --http.port ${ETH_HTTP_PORT} --http.addr ${ETH_HTTP_DNS}  --rpcapi "eth,net,web3,personal,miner,admin" --http.corsdomain "*"   --allow-insecure-unlock  
+fi
