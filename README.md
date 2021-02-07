@@ -1,6 +1,15 @@
 ## blockchain Infrastructure
 Private Coin
 
+
+## Technologie utilise :
+    ***Geth ***,
+    ***Solc ***,
+    ***Solidity ***,
+    ***Web3 (Librairie Blockchain opensource)***,
+    ***Docker ***
+    ***Ethereum***
+
 ## Docker run
 
 docker build -t privateth . 

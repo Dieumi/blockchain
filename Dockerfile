@@ -1,9 +1,5 @@
 FROM ubuntu:20.04
 USER root 
-RUN apt-get update && \
-    apt-get install nodejs -y && \
-    apt-get install npm -y  && \
-    npm install --ignore-scripts -g truffle  
 
 RUN apt-get install software-properties-common -y && \
     add-apt-repository -y ppa:ethereum/ethereum && \
