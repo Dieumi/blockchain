@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
 USER root 
+RUN apt-get update 
 
 RUN apt-get install software-properties-common -y && \
     add-apt-repository -y ppa:ethereum/ethereum && \
