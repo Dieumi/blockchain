@@ -12,50 +12,51 @@ contract  Lottery {
     // Sum of the current total up for grabs
     uint public lotteryTotal;
     // winningNumber;
-    uint8 public winningNumber;
+    uint256 public winningNumber;
+    
+    
     // winning address
     address public winningAddress;
-
-    bool public open;
     // tableau des tickets contenant leur address 
     // (Index = # de ticket)
     // (address = addresse à envoyer si gagnant)
-    address payable[] public tickets;
+    address payable [] public tickets;
     
+    uint256 public testNumber;
     event received(string msg);
+    event test(uint256 test);
 
-    constructor() public{
+    constructor(uint priceByTicket) public{
         // set owner as the address of the one who created the contract
         owner = msg.sender;
         // set the price to 2 ether
-        price = 2 ether;
+        price = priceByTicket * 1 ether;
         //set lottery lotteryTotal to 0
         lotteryTotal = 0;
-        open=true;
+      
     }
 
-    function accept() payable public{
-     
-    
+    function accept() payable public {
+        // Error out if anything other than 2 ether is sent
+        require(msg.value == price);
 
         // Track that calling account deposited ether
         // Give him a ticket
         tickets.push(msg.sender);
-        
+
         // add half of the ether to the amount up for grabs
         lotteryTotal += msg.value / 2;
         
         // log that a bet was received
         emit received("Bet received");
-        
-        if(tickets.length == 5){
-            // Select random winner
-            draw();
-        }
+        emit test(tickets.length);
+      
+
     }
     
-    function draw() private {
-        
+    function draw() public {
+        require(msg.sender==owner);
+        emit received("Bet DRAW");
         // gets a random winningNumber between 0 and 1 for now
         winningNumber = random();
         
@@ -64,24 +65,33 @@ contract  Lottery {
         
         //reset the current lottery amount
         lotteryTotal = 0;
-        //close contract
-        open = false;
+        
         //reset array of tickets
         delete tickets;
     }
     
-    function distributeFunds() private  {
+    function distributeFunds() private {
         // Calculate amount to distribute
         uint256 balanceToDistribute = lotteryTotal;
         // send amount to winner
         tickets[winningNumber].transfer(balanceToDistribute);
         winningAddress = tickets[winningNumber];
-       
+      
+    }
+    //Test function for remixIDE
+    function getTicket() public view returns (uint256) {
+        return testNumber;
+    }
+    //Test function for remixIDE
+    function setTicket(uint256 nb) public {
+        testNumber=nb;
+    }
+    function random() public view returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty)))%tickets.length;
     }
     
-    function random() private view returns (uint8) {
-        return uint8(uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty)))%4);
+    function contractCapital() public view returns (uint256) {
+        return address(this).balance;
     }
-    
-  
+
 }
